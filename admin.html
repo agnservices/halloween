@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="robots" content="noindex,nofollow">
+<title>RSVP · תוצאות (מארחים בלבד)</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Frank+Ruhl+Libre:wght@500;700&family=Heebo:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261003d">
+<style>
+.wrap{max-width:900px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:16px 0}
+.stat b{font-size:30px!important}
+.stat{border:1px solid var(--line);padding:12px;text-align:center;background:rgba(0,0,0,.45)}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:34px;color:#fff1cf}
+.stat span{font-size:14px;color:#cdb183}
+.stat.main{border-color:var(--gold2);box-shadow:0 0 16px rgba(216,183,122,.25)}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th,td{border-bottom:1px solid rgba(216,183,122,.2);padding:9px 6px;text-align:right;vertical-align:top}
+th{color:var(--gold);font-weight:500;font-size:13px}
+td.n{white-space:nowrap}
+.tag{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+.yes{color:#b6f0a8;border-color:#6f9d63}.no{color:#f2a08a;border-color:#a2614f}.maybe{color:#f3dc8f}
+.tools{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:8px}
+.tools button{background:rgba(0,0,0,.5);border:1px solid var(--line);color:var(--gold2);padding:8px 14px;border-radius:4px;font:inherit;cursor:pointer}
+.del{background:none;border:0;color:#a2614f;cursor:pointer;font-size:16px}
+.scroll{overflow-x:auto}
+.muted{color:#9b8460;font-size:13px}
+</style>
+</head>
+<body>
+<main class="wrap"><div class="frame"><i class="c1"></i><i class="c2"></i>
+ <h2 class="goldtext" style="margin-top:12px">RSVP RESULTS</h2>
+ <p class="sub">תוצאות אישורי הגעה · מארחים בלבד</p>
+ <div id="keyBox" class="hidden" style="padding:10px">
+  <p>חסר מפתח הפענוח בכתובת. הדביקו את הקישור המלא של דף המארחים (כולל החלק שאחרי #), או רק את המפתח:</p>
+  <input id="keyIn" type="text" dir="ltr" placeholder="k=..."><div class="tools"><button id="keyGo">פתיחה</button></div>
+ </div>
+ <div id="main" class="hidden">
+  <div class="stats">
+   <div class="stat main"><b id="sHead">–</b><span>סה״כ מגיעים (ראשים)</span></div>
+   <div class="stat"><b id="sYes">–</b><span>אישורים (מגיע/ה)</span></div>
+   <div class="stat"><b id="sNo">–</b><span>לא מגיעים</span></div>
+  </div>
+  <div class="tools"><button id="refresh">🔄 רענון</button><button id="csv">⬇️ הורדת CSV</button></div>
+  <p class="muted" id="status" style="text-align:center"></p>
+  <div class="scroll"><table><thead><tr><th>#</th><th>שם</th><th>סטטוס</th><th>אורחים</th><th>עודכן</th><th></th></tr></thead><tbody id="rows"></tbody></table></div>
+ </div>
+</div></main>
+<script src="common.js?v=20261003d"></script>
+<script>
+(function(){
+  const $=(id)=>document.getElementById(id);
+  const esc=(s)=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const L={yes:'מגיע/ה',maybe:'אולי',no:'לא מגיע/ה'};
+  let KEY=(new URLSearchParams(location.hash.slice(1))).get('k'); let rows=[];
+  if(!KEY){ $('keyBox').classList.remove('hidden'); $('keyGo').onclick=()=>{ const v=$('keyIn').value.trim(); const m=v.match(/k=([A-Za-z0-9_-]+)/); location.hash='k='+(m?m[1]:v); location.reload(); }; return; }
+  $('main').classList.remove('hidden');
+  // Host link key -> data key: the shared admin link's key unwraps the actual decryption key
+  const WRAP={"rx":"tnON1emaGqjX13Kmlsr3XZIhCedQ0GvI7hezcQ38Vug","ry":"YVj4BC33Luu5DfKhZNApO52Tz5K7YOI2HV8dD7t_S1A","e":["OLZx7wbKfnEDSNVpn_m2bfivZeHku1uTZo8VPxN1URA","Jludun0YTe0nUf6Ow-CLE38ahdZZ-jrWJsbibxF2CNA"],"i":"ua/D0xtobGHGotOe","c":"I/xFVjCujgPrfcXVi0fiHr05b9ACci9UMj3yusVn2sYd+Is38dICI/9gfD0PjpkOTOEzcNVV7nIbzIE="};
+  async function resolveKey(k){
+    try{
+      const ub=(s)=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+      const priv=await crypto.subtle.importKey('jwk',{kty:'EC',crv:'P-256',x:WRAP.rx,y:WRAP.ry,d:k},{name:'ECDH',namedCurve:'P-256'},false,['deriveKey']);
+      const ep=await crypto.subtle.importKey('jwk',{kty:'EC',crv:'P-256',x:WRAP.e[0],y:WRAP.e[1]},{name:'ECDH',namedCurve:'P-256'},false,[]);
+      const key=await crypto.subtle.deriveKey({name:'ECDH',public:ep},priv,{name:'AES-GCM',length:256},false,['decrypt']);
+      return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:ub(WRAP.i)},key,ub(WRAP.c)));
+    }catch(e){ return k; }
+  }
+  let keyReady=resolveKey(KEY).then(k=>KEY=k);
+  async function load(){
+    await keyReady;
+    $('status').textContent='טוען...'; const out=[]; let n=1, deleted=0, bad=0;
+    while(true){
+      const batch=[...Array(10)].map((_,i)=>n+i);
+      const vals=await Promise.all(batch.map(k=>RSVP.getSlot(k).catch(()=>'')));
+      for(let i=0;i<vals.length;i++){
+        const v=vals[i]; if(!v) continue;
+        if(v==='deleted'){deleted++;continue;}
+        try{ out.push({slot:batch[i], ...(await RSVP.decrypt(v,KEY))}); }catch(e){bad++;}
+      }
+      if(vals.every(v=>!v)) break; n+=10;
+    }
+    rows=out.sort((a,b)=>(a.at||'').localeCompare(b.at||''));
+    const yes=rows.filter(r=>r.status==='yes');
+    $('sHead').textContent=yes.reduce((s,r)=>s+(+r.guests||1),0);
+    $('sYes').textContent=yes.length;
+    $('sNo').textContent=rows.filter(r=>r.status==='no').length;
+    $('rows').innerHTML=rows.map((r,i)=>`<tr><td>${i+1}</td><td>${esc(r.name)}</td><td><span class="tag ${r.status}">${L[r.status]||esc(r.status)}</span></td><td class="n">${r.status==='yes'?esc(r.guests):'–'}</td><td class="n muted">${r.at?new Date(r.at).toLocaleString('he-IL',{timeZone:'Asia/Jerusalem',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}):''}</td><td><button class="del" title="מחיקה" data-slot="${r.slot}">✕</button></td></tr>`).join('') || '<tr><td colspan="6" class="muted" style="text-align:center">עדיין אין תשובות</td></tr>';
+    $('status').textContent=`${rows.length} תשובות · עודכן ${new Date().toLocaleTimeString('he-IL')}`+(bad?` · ${bad} רשומות לא קריאות (מפתח שגוי?)`:'')+(deleted?` · ${deleted} נמחקו`:'');
+  }
+  $('rows').addEventListener('click', async e=>{ const b=e.target.closest('.del'); if(!b) return; const r=rows.find(x=>x.slot==b.dataset.slot);
+    if(!confirm(`למחוק את התשובה של "${r&&r.name}"?`)) return; await RSVP.putSlot(b.dataset.slot,'deleted'); load(); });
+  $('refresh').onclick=load;
+  $('csv').onclick=()=>{ const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
+    const lines=[['name','status','guests','updated_at'].join(',')].concat(rows.map(r=>[r.name,L[r.status]||r.status,r.status==='yes'?r.guests:0,r.at].map(q).join(',')));
+    const blob=new Blob(['\ufeff'+lines.join('\r\n')],{type:'text/csv;charset=utf-8'}); const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='halloween-rsvp.csv'; a.click(); };
+  load(); setInterval(load, 60000);
+})();
+</script>
+</body></html>

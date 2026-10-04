@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>HALLOWEEN PARTY · אישור הגעה 30.10</title>
+<meta name="description" content="Dead serious about a good party. 30.10 · 20:00 · בית העם 12, רמות השבים. מחכים לאישור הגעה 💀">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HALLOWEEN PARTY 💀 30.10 · 20:00">
+<meta property="og:description" content="תגיעו מחופשים. אנחנו נדאג לכל השאר. מחכים לאישור הגעה">
+<meta property="og:image" content="https://agnservices.github.io/halloween/assets/og.jpg">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta property="og:url" content="https://agnservices.github.io/halloween/">
+<meta name="twitter:card" content="summary_large_image">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="theme-color" content="#050403">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💀</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=20261003g">
+</head>
+<body>
+<main class="wrap">
+ <div class="frame"><i class="c1"></i><i class="c2"></i>
+  <picture>
+   <source srcset="assets/invite.webp?v=20261003g" type="image/webp">
+   <img class="hero" src="assets/invite.jpg?v=20261003g" width="900" height="1350" alt="HALLOWEEN PARTY — הזמנה למסיבת האלווין 30.10 בשעה 20:00">
+  </picture>
+
+  <section id="rsvp">
+   <div class="orn"><span class="flick">🕯️</span></div>
+   <h2 class="goldtext" style="font-family:'Frank Ruhl Libre',serif;font-weight:700;letter-spacing:0;font-size:34px;line-height:1.2;margin:2px 0 0">אישורי הגעה</h2>
+   <div class="facts" dir="ltr" style="margin-top:6px"><span>30.10</span><span class="sep"></span><span>20:00</span></div>
+   <div class="links" style="margin-top:14px">
+    <a class="chip" id="calBtn" href="https://agnservices.github.io/halloween/halloween-party.ics" data-gcal="https://calendar.google.com/calendar/render?action=TEMPLATE&amp;text=HALLOWEEN%20PARTY%20%F0%9F%92%80&amp;dates=20261030T180000Z%2F20261030T230000Z&amp;ctz=Asia%2FJerusalem&amp;location=%D7%91%D7%99%D7%AA%20%D7%94%D7%A2%D7%9D%2012%2C%20%D7%A8%D7%9E%D7%95%D7%AA%20%D7%94%D7%A9%D7%91%D7%99%D7%9D&amp;details=DJ%2C%20FOOD%20%26%20WAY%20TOO%20MANY%20DRINKS.%0A%D7%AA%D7%92%D7%99%D7%A2%D7%95%20%D7%9E%D7%97%D7%95%D7%A4%D7%A9%D7%99%D7%9D.%20%D7%90%D7%A0%D7%97%D7%A0%D7%95%20%D7%A0%D7%93%D7%90%D7%92%20%D7%9C%D7%9B%D7%9C%20%D7%94%D7%A9%D7%90%D7%A8.%0A%D7%90%D7%99%D7%A9%D7%95%D7%A8%20%D7%94%D7%92%D7%A2%D7%94%3A%20https%3A%2F%2Fagnservices.github.io%2Fhalloween%2F">🗓️ הוספה ליומן</a>
+    <a class="chip" href="https://waze.com/ul?ll=32.1650562%2C34.8866230&amp;navigate=yes&amp;zoom=17">🚗 ניווט ב-Waze</a>
+   </div>
+
+   <form id="f" novalidate>
+    <div>
+     <label class="l" for="name">שם מלא</label>
+     <input id="name" name="name" type="text" maxlength="60" autocomplete="name" placeholder="איך קוראים לך (בחיים, לא בתחפושת)" required>
+     <div class="err" id="e-name"></div>
+    </div>
+    <div>
+     <span class="l" style="display:block;font-family:'Frank Ruhl Libre',serif;font-size:18px;margin-bottom:6px">מגיעים?</span>
+     <div class="seg" style="grid-template-columns:repeat(2,1fr)" role="radiogroup" aria-label="מגיעים?">
+      <input type="radio" name="status" id="s-yes" value="yes"><label for="s-yes"><b>💀</b>מגיע/ה</label>
+      <input type="radio" name="status" id="s-no" value="no"><label for="s-no"><b>⚰️</b>לא מגיע/ה</label>
+     </div>
+     <div class="err" id="e-status"></div>
+    </div>
+    <div id="guestsBox" class="hidden">
+     <label class="l" for="guests">כמה תהיו? <em>(כולל אותך)</em></label>
+     <div class="stepper">
+      <button type="button" id="minus" aria-label="פחות">−</button>
+      <input id="guests" name="guests" type="text" inputmode="numeric" pattern="[0-9]*" value="1" aria-label="מספר אורחים">
+      <button type="button" id="plus" aria-label="יותר">+</button>
+     </div>
+     <div class="err" id="e-guests"></div>
+    </div>
+    <div class="err" id="e-form" style="text-align:center"></div>
+    <button class="btn" id="submit" type="submit"><span class="spin"></span><span id="btnText">מאשר/ת הגעה 💀</span></button>
+   </form>
+
+   <div id="thanks" class="thanks hidden" aria-live="polite">
+    <div class="big" id="tIcon">💀</div>
+    <h3 class="goldtext" id="tTitle"></h3>
+    <p id="tBody"></p>
+    <p class="cinzel" dir="ltr" style="font-size:13px;color:#b99a66;letter-spacing:.18em;margin-top:14px">DEAD SERIOUS ABOUT A GOOD PARTY.</p>
+    <button class="link" id="again" type="button">רוצה לעדכן את התשובה?</button>
+   </div>
+  </section>
+  <p class="foot" dir="ltr">DJ, FOOD &amp; WAY TOO MANY DRINKS.</p>
+ </div>
+</main>
+<script src="common.js?v=20261003g"></script>
+<script>
+(function(){
+  const $ = (id) => document.getElementById(id);
+  const f = $('f'), gBox = $('guestsBox'), g = $('guests');
+  let busy = false;
+  const status = () => (f.querySelector('input[name=status]:checked') || {}).value;
+  function syncGuests(){ gBox.classList.toggle('hidden', status() !== 'yes'); }
+  f.querySelectorAll('input[name=status]').forEach(r => r.addEventListener('change', () => { syncGuests(); $('e-status').textContent=''; }));
+  const clampG = (v) => Math.max(1, Math.min(20, parseInt(String(v).replace(/\D/g,''),10) || 1));
+  $('minus').onclick = () => { g.value = clampG(g.value) - 1 || 1; g.value = clampG(g.value); };
+  $('plus').onclick = () => { g.value = clampG(+clampG(g.value) + 1); };
+  g.addEventListener('blur', () => g.value = clampG(g.value));
+  $('name').addEventListener('input', () => { $('name').classList.remove('invalid'); $('e-name').textContent=''; });
+
+  function showThanks(d){
+    const first = (d.name || '').trim().split(/\s+/)[0];
+    const T = {
+      yes:  ['💀', `נתראה בצד השני, ${first}!`, d.guests > 1 ? `שמרנו מקום ל-${d.guests} נשמות אבודות (קרוב לבר, כמובן). תגיעו מחופשים — אנחנו נדאג לכל השאר.` : 'שמרנו לך מקום (קרוב לבר, כמובן). תגיעו מחופשים — אנחנו נדאג לכל השאר.'],
+      maybe:['🕯️', `נשאיר לך נר דולק, ${first}`, 'אולי זה לא כן, אבל זה גם לא לא. כשתחליטו — פשוט פתחו שוב את הקישור ועדכנו.'],
+      no:   ['⚰️', `נתגעגע, ${first}`, 'חבל! נרים כוסית לכבודך מעבר לקבר. אם תתחרט/י — הקישור הזה תמיד פתוח.']
+    }[d.status];
+    $('tIcon').textContent = T[0]; $('tTitle').textContent = T[1]; $('tBody').textContent = T[2];
+    f.classList.add('hidden'); $('thanks').classList.remove('hidden');
+    $('rsvp').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  $('again').onclick = () => { $('thanks').classList.add('hidden'); f.classList.remove('hidden'); $('btnText').textContent = 'עדכון תשובה 💀'; };
+
+  // prefill if this device already answered
+  try { const m = JSON.parse(localStorage.getItem('hw26_rsvp')||'null'); if (m && m.data) { const d=m.data;
+    $('name').value=d.name||''; g.value=d.guests||1;
+    const r=$('s-'+d.status); if(r) r.checked=true; syncGuests(); $('btnText').textContent='עדכון תשובה 💀'; } } catch(e){}
+
+  f.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    if (busy) return;
+    ['name','status','guests','form'].forEach(k => $('e-'+k).textContent='');
+    const name = $('name').value.trim().replace(/\s+/g,' ');
+    const st = status();
+    let ok = true;
+    if (name.length < 2) { $('e-name').textContent = 'צריך שם כדי שנדע את מי להפחיד 👻'; $('name').classList.add('invalid'); ok=false; }
+    if (!st) { $('e-status').textContent = 'נו, מגיעים או לא?'; ok=false; }
+    if (!ok) { const e = document.querySelector('.err:not(:empty)'); e && e.parentElement.scrollIntoView({behavior:'smooth',block:'center'}); return; }
+    const d = {name, status: st, guests: st === 'yes' ? clampG(g.value) : 0, at: new Date().toISOString(), ua: navigator.userAgent.slice(0,80)};
+    busy = true; const btn = $('submit'); btn.disabled = true; btn.classList.add('loading'); const old = $('btnText').textContent; $('btnText').textContent = 'שולחים לעולם הבא...';
+    try { await RSVP.save(d); showThanks(d); $('btnText').textContent = 'עדכון תשובה 💀'; }
+    catch (e) { console.error(e); $('e-form').textContent = 'אופס, הרוחות שיבשו את השליחה. נסו שוב בעוד רגע.'; $('btnText').textContent = old; }
+    finally { busy = false; btn.disabled = false; btn.classList.remove('loading'); }
+  });
+})();
+</script>
+<script>
+(function(){ // native calendar: Android -> Google Calendar app template; iOS/other -> .ics (text/calendar)
+  var a=document.getElementById('calBtn'); if(!a) return;
+  var ua=navigator.userAgent;
+  if(/Android/i.test(ua)){ a.href=a.getAttribute('data-gcal'); }
+  else if(/iPhone|iPad|iPod/i.test(ua) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1)){
+    // host can't send text/calendar, so hand the .ics straight to the iOS Calendar app
+    /* served as text/calendar here: keep https link for native Add to Calendar */
+  }
+})();
+</script>
+</body>
+</html>
